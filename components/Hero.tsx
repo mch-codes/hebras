@@ -13,14 +13,14 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[88vh] items-end overflow-hidden bg-oat"
+      className="hero-frame relative flex min-h-[88vh] items-end overflow-hidden bg-oat"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
       <img
         src="/products/hero.jpg"
         alt="Bolso de crochet burdeos con cadena de perlas, llevado a mano"
         fetchPriority="high"
-        className="absolute inset-0 h-full w-full object-cover object-[42%_28%]"
+        className="hero-parallax absolute inset-0 h-full w-full object-cover object-[42%_28%]"
       />
       {/* Scrim — the photo is light at the bottom, text needs the contrast. */}
       <div
