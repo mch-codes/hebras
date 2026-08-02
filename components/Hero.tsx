@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Full-bleed lifestyle photo, wordmark, one line, one CTA — nothing else.
  *
@@ -36,12 +38,16 @@ export default function Hero() {
           Bolsos tejidos a mano, uno a uno.
         </p>
 
-        <a
-          href="#galeria"
-          className="mt-10 inline-flex items-center gap-3 border border-paper/70 px-7 py-3.5 text-[0.7rem] uppercase tracking-[0.25em] text-paper transition-colors hover:bg-paper hover:text-ink md:mt-12"
+        <button
+          onClick={() =>
+            document
+              .getElementById("galeria")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+          className="mt-10 inline-flex cursor-pointer items-center gap-3 border border-paper/70 px-7 py-3.5 text-[0.7rem] uppercase tracking-[0.25em] text-paper transition-colors hover:bg-paper hover:text-ink md:mt-12"
         >
           Ver piezas
-        </a>
+        </button>
       </div>
     </section>
   );
