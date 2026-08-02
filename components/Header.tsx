@@ -1,19 +1,42 @@
+"use client";
+
 import { waLink } from "@/lib/site";
 
 /** Sticky, so the WhatsApp CTA is reachable from anywhere on the page. */
 export default function Header() {
+  // Keeps the href (middle-click, right-click, keyboard all still work) but
+  // scrolls manually so the fragment never lands in the address bar.
+  const scrollToHash = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document
+      .getElementById(e.currentTarget.hash.slice(1))
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-taupe/25 bg-paper/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 md:px-12">
-        <a href="#top" className="font-serif text-xl tracking-wide md:text-2xl">
+        <a
+          href="#top"
+          onClick={scrollToHash}
+          className="font-serif text-xl tracking-wide md:text-2xl"
+        >
           Hebras
         </a>
 
         <nav className="hidden items-center gap-10 text-[0.7rem] uppercase tracking-[0.25em] text-ink/55 sm:flex">
-          <a href="#galeria" className="transition-colors hover:text-clay">
+          <a
+            href="#galeria"
+            onClick={scrollToHash}
+            className="transition-colors hover:text-clay"
+          >
             Piezas
           </a>
-          <a href="#sobre-mi" className="transition-colors hover:text-clay">
+          <a
+            href="#sobre-mi"
+            onClick={scrollToHash}
+            className="transition-colors hover:text-clay"
+          >
             Sobre mí
           </a>
         </nav>
