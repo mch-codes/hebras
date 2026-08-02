@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Intentions from "@/components/Intentions";
 import Gallery from "@/components/Gallery";
+import Materials from "@/components/Materials";
 import Story from "@/components/Story";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -46,6 +47,7 @@ export default function Page() {
       </section>
 
       <Gallery />
+      <Materials />
       <Story />
 
       {/* The brand tag — this is the signature, not a product. */}
