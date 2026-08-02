@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Work_Sans } from "next/font/google";
+import Header from "@/components/Header";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -29,7 +30,10 @@ export default function RootLayout({
       lang="es"
       className={`scroll-smooth ${fraunces.variable} ${workSans.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

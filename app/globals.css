@@ -24,6 +24,11 @@ body {
   background: var(--color-oat);
 }
 
+/* Anchor targets clear the sticky header instead of hiding under it. */
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
 /* Scroll-triggered fade-in, no JS. Browsers without scroll-driven animations
    just run it once on load — either way the element ends up visible. */
 .reveal {

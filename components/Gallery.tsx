@@ -73,11 +73,13 @@ const products: Product[] = [
 
 export default function Gallery() {
   return (
-    <section id="galeria" className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-28">
+    <section id="galeria" className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-32">
       <h2 className="reveal mb-14 font-serif text-3xl tracking-wide md:mb-20 md:text-4xl">
         Piezas
       </h2>
-      <div className="columns-1 gap-8 sm:columns-2 lg:columns-3 lg:gap-12">
+      {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, and a
+          rigid grid would centre-crop half of them. */}
+      <div className="columns-1 gap-10 sm:columns-2 lg:columns-3 lg:gap-14">
         {products.map((p) => (
           <GalleryItem key={p.name} {...p} />
         ))}
