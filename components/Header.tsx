@@ -1,6 +1,7 @@
 "use client";
 
 import { waLink } from "@/lib/site";
+import { scrollToId } from "@/components/SmoothScroll";
 
 /** Sticky, so the WhatsApp CTA is reachable from anywhere on the page. */
 export default function Header() {
@@ -8,9 +9,7 @@ export default function Header() {
   // scrolls manually so the fragment never lands in the address bar.
   const scrollToHash = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    document
-      .getElementById(e.currentTarget.hash.slice(1))
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToId(e.currentTarget.hash.slice(1));
   };
 
   return (

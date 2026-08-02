@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import Header from "@/components/Header";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 // Cormorant Garamond isn't variable on Google Fonts, so the weights are listed
@@ -37,6 +38,7 @@ export default function RootLayout({
       className={`scroll-smooth ${cormorant.variable} ${jost.variable}`}
     >
       <body>
+        <SmoothScroll />
         <Header />
         {children}
       </body>
