@@ -79,7 +79,7 @@ export default function Gallery() {
       </h2>
       {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, and a
           rigid grid would centre-crop half of them. */}
-      <div className="columns-1 gap-10 sm:columns-2 lg:columns-3 lg:gap-14">
+      <div className="columns-1 gap-12 sm:columns-2 lg:gap-20">
         {products.map((p) => (
           <GalleryItem key={p.name} {...p} />
         ))}

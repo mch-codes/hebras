@@ -10,7 +10,7 @@ export type Product = {
 
 export default function GalleryItem({ name, material, ratio, src }: Product) {
   return (
-    <figure className="reveal group mb-14 break-inside-avoid md:mb-20">
+    <figure className="reveal group mb-20 break-inside-avoid md:mb-28">
       <div className={`${ratio} overflow-hidden bg-oat`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
         <img
@@ -21,7 +21,13 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
         />
       </div>
 
-      <figcaption className="mt-5">
+      {/* Visible by default on touch (no hover there); revealed on hover/focus from sm up. */}
+      <figcaption
+        className="mt-5 transition-all duration-[450ms] ease-out
+                   sm:translate-y-2 sm:opacity-0
+                   sm:group-hover:translate-y-0 sm:group-hover:opacity-100
+                   sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100"
+      >
         <div className="flex items-baseline justify-between gap-4">
           <span className="font-serif text-base">{name}</span>
           {material && (
@@ -36,10 +42,15 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
           href={waLink(`Hola Hebras, me interesa «${name}». ¿Me cuentas más?`)}
           target="_blank"
           rel="noreferrer noopener"
-          className="mt-3 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] text-ink/50 transition-colors hover:text-clay"
+          className="group/cta mt-3 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] text-ink/50"
         >
-          Preguntar por WhatsApp
-          <span aria-hidden="true" className="text-sm leading-none">
+          <span className="relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-clay after:transition-transform after:duration-[350ms] after:ease-out group-hover/cta:after:scale-x-100 group-focus-visible/cta:after:scale-x-100">
+            Preguntar por WhatsApp
+          </span>
+          <span
+            aria-hidden="true"
+            className="text-sm leading-none transition-transform duration-[350ms] ease-out group-hover/cta:translate-x-1 group-focus-visible/cta:translate-x-1"
+          >
             →
           </span>
         </a>
