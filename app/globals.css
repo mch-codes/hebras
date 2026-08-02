@@ -10,7 +10,8 @@
   --color-burgundy: #5c2a2e;
 
   --font-serif: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-work-sans), system-ui, sans-serif;
+  --font-serif--font-variation-settings: "SOFT" 50, "WONK" 0;
+  --font-sans: var(--font-karla), system-ui, sans-serif;
 }
 
 body {

@@ -29,7 +29,7 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 md:px-12 md:pb-24">
-        <h1 className="font-serif text-[18vw] leading-[0.85] tracking-[-0.02em] text-paper md:text-[8rem]">
+        <h1 className="font-serif font-light text-[18vw] leading-[0.85] tracking-[-0.02em] text-paper md:text-[8rem]">
           Hebras
         </h1>
         <p className="mt-5 max-w-lg font-serif text-xl italic tracking-wide text-paper/90 md:text-3xl">

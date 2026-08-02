@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans } from "next/font/google";
+import { Fraunces, Karla } from "next/font/google";
 import Header from "@/components/Header";
 import "./globals.css";
 
+// Both are variable fonts: no `weight` array, so the full axis range ships in
+// one file and `font-light`/`font-medium` just work. SOFT/WONK are pinned in
+// globals.css via font-variation-settings.
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
   axes: ["SOFT", "WONK"],
 });
 
-const workSans = Work_Sans({
+const karla = Karla({
   subsets: ["latin"],
-  variable: "--font-work-sans",
+  variable: "--font-karla",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`scroll-smooth ${fraunces.variable} ${workSans.variable}`}
+      className={`scroll-smooth ${fraunces.variable} ${karla.variable}`}
     >
       <body>
         <Header />

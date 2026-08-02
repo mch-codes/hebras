@@ -6,7 +6,7 @@ export default function Contact() {
       id="contacto"
       className="reveal mx-auto max-w-2xl px-6 py-28 text-center md:py-40"
     >
-      <h2 className="font-serif text-3xl leading-snug tracking-wide md:text-4xl">
+      <h2 className="font-serif font-light text-3xl leading-snug tracking-wide md:text-4xl">
         ¿Te gusta alguna pieza?
       </h2>
       <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-ink/65">

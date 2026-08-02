@@ -63,7 +63,7 @@ export default function Page() {
           <p className="text-[0.7rem] uppercase tracking-[0.3em] text-ink/45">
             La etiqueta
           </p>
-          <h2 className="mt-5 font-serif text-4xl tracking-wide md:text-5xl">
+          <h2 className="mt-5 font-serif font-light text-4xl tracking-wide md:text-5xl">
             Hebras
           </h2>
           <p className="mt-6 font-serif text-lg italic leading-relaxed text-ink/75 md:text-xl">
