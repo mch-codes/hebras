@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Fraunces, Karla } from "next/font/google";
+import { Cormorant_Garamond, Jost } from "next/font/google";
 import Header from "@/components/Header";
 import "./globals.css";
 
-// Both are variable fonts: no `weight` array, so the full axis range ships in
-// one file and `font-light`/`font-medium` just work. SOFT/WONK are pinned in
-// globals.css via font-variation-settings.
-const fraunces = Fraunces({
+// Cormorant Garamond isn't variable on Google Fonts, so the weights are listed
+// explicitly — 300 for the display headings, 400 for everything else. Real
+// italics ship too: the pull quotes and the hero subtitle lean on them at large
+// sizes, where a synthesised oblique looks cheap.
+// ponytail: add 500/600 here if a heading ever needs more weight.
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  axes: ["SOFT", "WONK"],
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
 });
 
-const karla = Karla({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-karla",
+  variable: "--font-jost",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`scroll-smooth ${fraunces.variable} ${karla.variable}`}
+      className={`scroll-smooth ${cormorant.variable} ${jost.variable}`}
     >
       <body>
         <Header />

@@ -9,9 +9,8 @@
   --color-sage: #8a9478;
   --color-burgundy: #5c2a2e;
 
-  --font-serif: var(--font-fraunces), Georgia, serif;
-  --font-serif--font-variation-settings: "SOFT" 50, "WONK" 0;
-  --font-sans: var(--font-karla), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
 }
 
 body {
