@@ -38,7 +38,9 @@ export const metadata: Metadata = {
     locale: "es_ES",
     siteName: "Hebras",
     images: [
-      { url: "/products/bolso-conchas.jpg", width: 1280, height: 855, alt: title },
+      // The hero shot, cropped landscape — link cards are ~1.9:1 and would
+      // otherwise slice the bag out of the portrait original.
+      { url: "/og.jpg", width: 855, height: 448, alt: title },
     ],
   },
   twitter: { card: "summary_large_image", title, description },
