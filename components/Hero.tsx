@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="hero-frame relative flex min-h-[88vh] items-end overflow-hidden bg-oat"
+      className="hero-frame relative flex min-h-screen items-end overflow-hidden bg-oat"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
       <img

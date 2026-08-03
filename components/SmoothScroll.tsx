@@ -38,8 +38,25 @@ export default function SmoothScroll() {
 
     lenis = new Lenis();
 
+    // Firefox has no scroll-driven animations, so the CSS hero parallax never
+    // runs there. Drive the same drift off the rAF loop we already have — the
+    // feature test means this self-disables the day Firefox ships it.
+    // ponytail: linear approximation of the view-timeline, not the same curve.
+    const hero = CSS.supports("animation-timeline: view()")
+      ? null
+      : document.querySelector<HTMLElement>(".hero-parallax");
+    if (hero) {
+      hero.style.top = "-20vh";
+      hero.style.height = "calc(100% + 40vh)";
+      hero.style.willChange = "transform";
+    }
+
     let frame = requestAnimationFrame(function raf(time) {
       lenis?.raf(time);
+      if (hero) {
+        const p = Math.min(1, window.scrollY / window.innerHeight);
+        hero.style.transform = `translateY(${(p * 2 - 1) * 20}vh)`;
+      }
       frame = requestAnimationFrame(raf);
     });
 

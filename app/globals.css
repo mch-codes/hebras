@@ -50,7 +50,7 @@ body {
 
 /* Hero parallax: the photo drifts at ~17% of scroll speed while the copy and
    scrim scroll normally. Same scroll-driven-animation trick as .reveal, so Hero
-   stays a server component. The <img> is oversized 16vh top and bottom so the
+   stays a server component. The <img> is oversized 20vh top and bottom so the
    drift never exposes an edge; the sizing lives inside @supports with the
    animation, so browsers without scroll timelines get the plain static image. */
 @supports (animation-timeline: view()) {
@@ -59,8 +59,8 @@ body {
   }
 
   .hero-parallax {
-    top: -16vh;
-    height: calc(100% + 32vh);
+    top: -20vh;
+    height: calc(100% + 40vh);
     will-change: transform;
     animation: hero-drift linear both;
     animation-timeline: --hero;
@@ -69,10 +69,10 @@ body {
 
 @keyframes hero-drift {
   from {
-    transform: translateY(-16vh);
+    transform: translateY(-20vh);
   }
   to {
-    transform: translateY(16vh);
+    transform: translateY(20vh);
   }
 }
 
