@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#b8a88f"/>
+  <!-- ponytail: the H is three rects, not text — no webfont reaches a favicon,
+       and a serif fallback renders differently on every OS at 16px. -->
+  <path fill="#fff" d="M18 16h6v13h16V16h6v32h-6V35H24v13h-6z"/>
+</svg>
