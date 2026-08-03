@@ -1,10 +1,16 @@
 import GalleryItem, { type Product } from "./GalleryItem";
 
 // Ratios stay within each file's orientation but vary, so the masonry
-// reads as uneven heights instead of a metronome. Order alternates product
-// type (bolso / sombrero / pulseras / detalle) so no two neighbours in the
-// column flow are the same thing — the two bombonera mint shots sit furthest
-// apart of all.
+// reads as uneven heights instead of a metronome.
+//
+// Order matters here. Eleven photos in three balanced columns means a photo's
+// neighbours are the one below it AND the one roughly four slots later, in the
+// next column over. So each repeated subject — the two bombonera mint shots,
+// the two pulseras, the two conchas, the three sombreros — is spaced six slots
+// apart, which clears both. The only pair closer than that is the two
+// sombreros at slots 2 and 4: three hats can't all be six apart in eleven
+// slots, and two apart is the one short distance that is never a neighbour in
+// either direction.
 const products: Product[] = [
   {
     name: "Bolso bombonera verde agua",
@@ -13,16 +19,10 @@ const products: Product[] = [
     src: "/products/bolso-mint-colgado.jpg",
   },
   {
-    name: "Sombrero camel",
-    material: "Hilo de algodón",
-    ratio: "aspect-[4/5]",
-    src: "/products/sombrero-camel.jpg",
-  },
-  {
-    name: "Bolso burdeos con asa de piedras",
-    material: "Hilo encerado",
-    ratio: "aspect-[4/3]",
-    src: "/products/bolso-burdeos.jpg",
+    name: "Sombrero crudo",
+    material: "Algodón y conchas",
+    ratio: "aspect-[3/4]",
+    src: "/products/sombrero-crudo.jpg",
   },
   {
     name: "Pulseras tejidas",
@@ -31,10 +31,10 @@ const products: Product[] = [
     src: "/products/pulseras-detalle.jpg",
   },
   {
-    name: "Bolso redondo con flecos",
-    material: "Hilo de seda",
-    ratio: "aspect-[3/4]",
-    src: "/products/bolso-flecos.jpg",
+    name: "Sombrero camel",
+    material: "Hilo de algodón",
+    ratio: "aspect-[4/5]",
+    src: "/products/sombrero-camel.jpg",
   },
   {
     name: "Detalle de conchas y perlas",
@@ -43,22 +43,22 @@ const products: Product[] = [
     src: "/products/conchas-detalle.jpg",
   },
   {
-    name: "Bolso crudo con conchas",
-    material: "Algodón y latón dorado",
-    ratio: "aspect-[3/2]",
-    src: "/products/bolso-conchas.jpg",
-  },
-  {
-    name: "Sombrero crudo",
-    material: "Algodón y conchas",
-    ratio: "aspect-[3/4]",
-    src: "/products/sombrero-crudo.jpg",
+    name: "Bolso burdeos con asa de piedras",
+    material: "Hilo encerado",
+    ratio: "aspect-[4/3]",
+    src: "/products/bolso-burdeos.jpg",
   },
   {
     name: "Bolso bombonera sobre madera",
     material: "Trapillo de algodón",
     ratio: "aspect-[2/3]",
     src: "/products/bolso-mint.jpg",
+  },
+  {
+    name: "Bolso redondo con flecos",
+    material: "Hilo de seda",
+    ratio: "aspect-[3/4]",
+    src: "/products/bolso-flecos.jpg",
   },
   {
     name: "Pulseras en tonos tierra",
@@ -71,6 +71,12 @@ const products: Product[] = [
     material: "Por encargo",
     ratio: "aspect-[4/5]",
     src: "/products/sombrero-y-bolso.jpg",
+  },
+  {
+    name: "Bolso crudo con conchas",
+    material: "Algodón y latón dorado",
+    ratio: "aspect-[3/2]",
+    src: "/products/bolso-conchas.jpg",
   },
   // etiqueta.jpg is the brand tag — it lives in its own section on app/page.tsx.
 ];
