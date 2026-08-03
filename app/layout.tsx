@@ -26,9 +26,9 @@ const description =
   "Bolsos tejidos a crochet — para mujeres que valoran lo hecho a mano, lo sostenible y lo auténtico.";
 
 export const metadata: Metadata = {
-  // ponytail: hardcoded — swap when the real domain lands. Link previews need
-  // absolute URLs, and a static export has no request to infer the host from.
-  metadataBase: new URL("https://hebras.vercel.app"),
+  // ponytail: hardcoded — swap if the site moves off this domain. Link previews
+  // need absolute URLs, and a static export has no request to infer the host from.
+  metadataBase: new URL("https://hebras-lemon.vercel.app"),
   title,
   description,
   openGraph: {
