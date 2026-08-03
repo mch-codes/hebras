@@ -45,11 +45,10 @@ const layer =
 export default function Intentions() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-28">
-      <h2 className="reveal mb-10 text-[0.7rem] uppercase tracking-[0.3em] text-ink/45 md:mb-14">
-        ¿Qué estás buscando?
-      </h2>
-
-      <ul className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-8">
+      <ul
+        aria-label="Qué estás buscando"
+        className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-8"
+      >
         {intentions.map(({ label, tagline, src, hover, message }) => (
           <li key={label} className="reveal">
             <a

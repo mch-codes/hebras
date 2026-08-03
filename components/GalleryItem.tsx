@@ -1,4 +1,4 @@
-import { waLink } from "@/lib/site";
+import { INSTAGRAM } from "@/lib/site";
 
 export type Product = {
   name: string;
@@ -39,13 +39,13 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
 
         {/* Inquiry, never an order — no price, no cart, no commitment. */}
         <a
-          href={waLink(`Hola Hebras, me interesa «${name}». ¿Me cuentas más?`)}
+          href={INSTAGRAM}
           target="_blank"
           rel="noreferrer noopener"
           className="group/cta mt-3 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] text-ink/50"
         >
           <span className="relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-clay after:transition-transform after:duration-[350ms] after:ease-out group-hover/cta:after:scale-x-100 group-focus-visible/cta:after:scale-x-100">
-            Preguntar por WhatsApp
+            Ver en Instagram
           </span>
           <span
             aria-hidden="true"

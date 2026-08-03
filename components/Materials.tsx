@@ -7,48 +7,22 @@
  * actually said — verify each with her before this goes live, since a material
  * name on a product page is a labelling claim, not a copy tweak.
  */
-const materials = [
-  {
-    name: "Trapillo de algodón",
-    description:
-      "Tiras de tejido de punto, cortadas y recicladas, la base de los bolsos bombonera.",
-  },
-  {
-    name: "Hilo encerado de polipropileno",
-    description: "Resistente y con tacto ceroso, para piezas de uso diario.",
-  },
-  {
-    name: "Hilo de seda",
-    description: "Para los bolsos más delicados, con un brillo natural.",
-  },
-  {
-    name: "Latón dorado y conchas",
-    description:
-      "Detalles y cierres que no son crochet, pero sí parte de la pieza.",
-  },
-];
-
 export default function Materials() {
   return (
     <section className="mx-auto max-w-5xl px-6 md:px-12">
-      <div className="border-t border-taupe/30 py-20 md:py-28">
-        <p className="reveal text-[0.7rem] uppercase tracking-[0.3em] text-ink/45">
-          Materiales
-        </p>
-        <h2 className="reveal mt-5 font-serif font-light text-3xl tracking-wide md:text-4xl">
+      <div className="py-20 md:py-28">
+        <h2 className="reveal text-center font-serif font-light text-3xl tracking-wide md:text-4xl">
           De qué están hechas
         </h2>
 
-        <dl className="reveal mt-14 grid gap-10 sm:grid-cols-2 md:mt-20 md:gap-14">
-          {materials.map(({ name, description }) => (
-            <div key={name}>
-              <dt className="font-serif text-lg">{name}</dt>
-              <dd className="mt-2 text-sm leading-relaxed text-ink/60">
-                {description}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <p className="reveal mx-auto mt-10 max-w-2xl text-center text-base leading-loose text-ink/65 md:mt-12">
+          Cada pieza empieza en un ovillo. Para los bolsos bombonera uso
+          trapillo de algodón, tiras de tejido de punto cortadas y recicladas;
+          cuando la pieza es de diario, hilo encerado de polipropileno,
+          resistente y con tacto ceroso; y para las más delicadas, hilo de seda,
+          por su brillo natural. El latón dorado y las conchas de los cierres no
+          son crochet, pero también son la pieza.
+        </p>
       </div>
     </section>
   );

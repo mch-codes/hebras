@@ -58,7 +58,7 @@ const products: Product[] = [
     src: "/products/bolso-mint.jpg",
   },
   {
-    name: "Set de sombrero y bolso",
+    name: "Conjunto de sombrero y bolso",
     material: "Por encargo",
     ratio: "aspect-[4/5]",
     src: "/products/sombrero-y-bolso.jpg",
@@ -72,18 +72,45 @@ const products: Product[] = [
   // etiqueta.jpg is the brand tag — it lives in its own section on app/page.tsx.
 ];
 
+// Sits centred on each corner of the frame, paper padding cutting the line.
+const corners = [
+  "left-0 top-0 -translate-x-1/2 -translate-y-1/2 -rotate-45",
+  "right-0 top-0 translate-x-1/2 -translate-y-1/2 rotate-45",
+  "left-0 bottom-0 -translate-x-1/2 translate-y-1/2 rotate-[225deg]",
+  "right-0 bottom-0 translate-x-1/2 translate-y-1/2 rotate-[135deg]",
+];
+
 export default function Gallery() {
   return (
     <section id="coleccion" className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-32">
-      <h2 className="reveal mb-14 font-serif font-light text-3xl tracking-wide md:mb-20 md:text-4xl">
-        Colección
-      </h2>
-      {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, and a
-          rigid grid would centre-crop half of them. */}
-      <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
-        {products.map((p) => (
-          <GalleryItem key={p.name} {...p} />
+      {/* The frame wraps heading and grid together, so the section reads as one
+          plate rather than a title floating above photos. */}
+      <div className="relative border border-taupe/50 px-6 py-14 md:px-12 md:py-20">
+        {corners.map((pos) => (
+          <svg
+            key={pos}
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            className={`absolute ${pos} h-4 w-4 bg-paper px-0.5 text-clay`}
+          >
+            <path d="M12 21s-8-5-8-10.2A4.8 4.8 0 0 1 12 7.2a4.8 4.8 0 0 1 8 3.6C20 16 12 21 12 21Z" />
+          </svg>
         ))}
+
+        {/* Legend-style: straddles the top border, paper background cuts the
+            line. No .reveal — its keyframe ends on transform:none, which would
+            undo the centering translate. */}
+        <h2 className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper px-6 text-center font-serif font-light text-3xl tracking-wide md:text-4xl">
+          Colección
+        </h2>
+        {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, and a
+            rigid grid would centre-crop half of them. */}
+        <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
+          {products.map((p) => (
+            <GalleryItem key={p.name} {...p} />
+          ))}
+        </div>
       </div>
     </section>
   );

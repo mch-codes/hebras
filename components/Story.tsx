@@ -26,11 +26,7 @@ export default function Story() {
       </div>
 
       <div className="reveal">
-        <p className="text-[0.7rem] uppercase tracking-[0.3em] text-ink/45">
-          Sobre mí
-        </p>
-
-        <p className="mt-6 font-serif text-xl leading-[1.65] text-ink/80 md:text-2xl md:leading-[1.7]">
+        <p className="font-serif text-xl leading-[1.65] text-ink/80 md:text-2xl md:leading-[1.7]">
           Aprendí a tejer con mi abuela, en verano, para no aburrirme. Años
           después volví al ganchillo para desconectar del trabajo y acabé
           tejiendo para medio barrio.
@@ -43,7 +39,7 @@ export default function Story() {
 
         <blockquote className="mt-10 border-l-2 border-clay pl-6">
           <p className="font-serif text-lg italic leading-relaxed text-ink/75 md:text-xl">
-            «Prefiero tejer diez bolsos al año que mil iguales.»
+            «Prefiero tejer diez bolsos al año que mil iguales».
           </p>
         </blockquote>
       </div>
