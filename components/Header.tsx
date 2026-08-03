@@ -23,18 +23,18 @@ export default function Header() {
           Hebras
         </a>
 
-        <nav className="hidden items-center gap-10 text-[0.8rem] font-semibold uppercase tracking-[0.25em] text-paper sm:flex">
+        <nav className="hidden items-center gap-10 text-[0.9rem] font-semibold uppercase tracking-[0.25em] text-paper sm:flex">
           <a
-            href="#galeria"
+            href="#coleccion"
             onClick={scrollToHash}
-            className="transition-colors hover:text-clay"
+            className="underline-offset-8 hover:underline"
           >
-            Piezas
+            Colección
           </a>
           <a
             href="#sobre-mi"
             onClick={scrollToHash}
-            className="transition-colors hover:text-clay"
+            className="underline-offset-8 hover:underline"
           >
             Sobre mí
           </a>
@@ -44,7 +44,7 @@ export default function Header() {
           href={INSTAGRAM}
           target="_blank"
           rel="noreferrer noopener"
-          className="inline-flex items-center gap-2 border border-paper/40 bg-paper/10 px-4 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-paper backdrop-blur-sm transition-colors hover:bg-paper hover:text-ink md:px-5"
+          className="inline-flex items-center gap-2 border border-paper/40 bg-paper/10 px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-paper backdrop-blur-sm transition-colors hover:bg-paper hover:text-ink md:px-5"
         >
           <svg
             viewBox="0 0 24 24"

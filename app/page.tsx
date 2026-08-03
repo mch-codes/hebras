@@ -41,9 +41,6 @@ export default function Page() {
           prisa. No hay stock ni producción en serie: cada bolso se hace por
           encargo, en el color y el tamaño que elijas.
         </p>
-        <p className="mt-6 text-sm leading-relaxed text-ink/55">
-          Piezas pensadas para durar años y acompañarte a todas partes.
-        </p>
       </section>
 
       <Gallery />

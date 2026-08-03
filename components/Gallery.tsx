@@ -73,9 +73,9 @@ const products: Product[] = [
 
 export default function Gallery() {
   return (
-    <section id="galeria" className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-32">
+    <section id="coleccion" className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-32">
       <h2 className="reveal mb-14 font-serif font-light text-3xl tracking-wide md:mb-20 md:text-4xl">
-        Piezas
+        Colección
       </h2>
       {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, and a
           rigid grid would centre-crop half of them. */}
