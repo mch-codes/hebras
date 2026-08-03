@@ -1,6 +1,7 @@
 import GalleryItem, { type Product } from "./GalleryItem";
 
-// Ratios match each file's native shape so object-cover barely crops.
+// Ratios stay within each file's orientation but vary, so the masonry
+// reads as uneven heights instead of a metronome.
 const products: Product[] = [
   {
     name: "Bolso bombonera verde agua",
@@ -11,13 +12,13 @@ const products: Product[] = [
   {
     name: "Bolso burdeos con asa de piedras",
     material: "Hilo encerado",
-    ratio: "aspect-[3/2]",
+    ratio: "aspect-[4/3]",
     src: "/products/bolso-burdeos.jpg",
   },
   {
     name: "Bolso redondo con flecos",
     material: "Hilo de seda",
-    ratio: "aspect-[2/3]",
+    ratio: "aspect-[3/4]",
     src: "/products/bolso-flecos.jpg",
   },
   {
@@ -29,7 +30,7 @@ const products: Product[] = [
   {
     name: "Sombrero camel",
     material: "Hilo de algodón",
-    ratio: "aspect-[2/3]",
+    ratio: "aspect-[4/5]",
     src: "/products/sombrero-camel.jpg",
   },
   {
@@ -41,13 +42,13 @@ const products: Product[] = [
   {
     name: "Sombrero crudo",
     material: "Algodón y conchas",
-    ratio: "aspect-[2/3]",
+    ratio: "aspect-[3/4]",
     src: "/products/sombrero-crudo.jpg",
   },
   {
     name: "Detalle de conchas y perlas",
     material: "Hecho a mano",
-    ratio: "aspect-[3/2]",
+    ratio: "aspect-[4/3]",
     src: "/products/conchas-detalle.jpg",
   },
   {
@@ -59,13 +60,13 @@ const products: Product[] = [
   {
     name: "Set de sombrero y bolso",
     material: "Por encargo",
-    ratio: "aspect-[2/3]",
+    ratio: "aspect-[4/5]",
     src: "/products/sombrero-y-bolso.jpg",
   },
   {
     name: "Pulseras en tonos tierra",
     material: "Hilo de algodón",
-    ratio: "aspect-[2/3]",
+    ratio: "aspect-[3/4]",
     src: "/products/pulseras.jpg",
   },
   // etiqueta.jpg is the brand tag — it lives in its own section on app/page.tsx.
@@ -79,7 +80,7 @@ export default function Gallery() {
       </h2>
       {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, and a
           rigid grid would centre-crop half of them. */}
-      <div className="columns-1 gap-12 sm:columns-2 lg:gap-20">
+      <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
         {products.map((p) => (
           <GalleryItem key={p.name} {...p} />
         ))}

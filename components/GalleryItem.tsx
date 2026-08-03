@@ -10,7 +10,7 @@ export type Product = {
 
 export default function GalleryItem({ name, material, ratio, src }: Product) {
   return (
-    <figure className="reveal group mb-20 break-inside-avoid md:mb-28">
+    <figure className="reveal group mb-6 cursor-pointer break-inside-avoid md:mb-8">
       <div className={`${ratio} overflow-hidden bg-oat`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
         <img
@@ -23,7 +23,7 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
 
       {/* Visible by default on touch (no hover there); revealed on hover/focus from sm up. */}
       <figcaption
-        className="mt-5 transition-all duration-[450ms] ease-out
+        className="mt-3 transition-all duration-[450ms] ease-out
                    sm:translate-y-2 sm:opacity-0
                    sm:group-hover:translate-y-0 sm:group-hover:opacity-100
                    sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100"
