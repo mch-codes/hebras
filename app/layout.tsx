@@ -21,10 +21,27 @@ const jost = Jost({
   variable: "--font-jost",
 });
 
+const title = "Hebras — crochet artesanal";
+const description =
+  "Bolsos tejidos a crochet — para mujeres que valoran lo hecho a mano, lo sostenible y lo auténtico.";
+
 export const metadata: Metadata = {
-  title: "Hebras — crochet artesanal",
-  description:
-    "Bolsos tejidos a crochet — para mujeres que valoran lo hecho a mano, lo sostenible y lo auténtico.",
+  // ponytail: hardcoded — swap when the real domain lands. Link previews need
+  // absolute URLs, and a static export has no request to infer the host from.
+  metadataBase: new URL("https://hebras.vercel.app"),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    locale: "es_ES",
+    siteName: "Hebras",
+    images: [
+      { url: "/products/bolso-conchas.jpg", width: 1280, height: 855, alt: title },
+    ],
+  },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function RootLayout({
