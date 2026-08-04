@@ -10,15 +10,18 @@ export type Product = {
 
 export default function GalleryItem({ name, material, ratio, src }: Product) {
   return (
-    <figure className="reveal group cursor-pointer">
+    /* mb, not grid gap: multicol has no row gap. Roomier at one column, where
+       the caption sits under the photo and needs air before the next. */
+    <figure className="reveal group mb-10 cursor-pointer break-inside-avoid sm:mb-6 lg:mb-8">
       {/* The aspect-ratio wrapper reserves the box before the file lands, so a
           loading photo never shifts the page. */}
       <div className={`${ratio} overflow-hidden bg-oat`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
+        {/* No loading="lazy": Safari resolves it against the pre-fragmentation
+            layout, so photos past column 1 never load. Eleven ~150 KB files. */}
         <img
           src={src}
           alt={name}
-          loading="lazy"
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />

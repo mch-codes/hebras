@@ -113,13 +113,13 @@ export default function Gallery() {
         <h2 className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper px-6 text-center font-serif font-light text-3xl tracking-wide md:text-4xl">
           Colección
         </h2>
-        {/* Grid, not CSS columns. Each figure keeps its own aspect ratio, so
-            nothing gets centre-cropped and rows just end ragged — and dropping
-            multicol takes both Safari fragmentation bugs with it (lazy images
-            never loading past column 1, mispaints mid-transform).
-            Wider gap at one column: on phones the caption sits under each photo
-            and needs air before the next one. */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+        {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, so a
+            row-aligned grid leaves a ragged gap under every short one — and its
+            left-to-right flow breaks the ordering above, which is written for
+            the way columns flow top-to-bottom. The cost is two Safari multicol
+            bugs, both worked around: eager images in GalleryItem, fade-only
+            reveal in globals.css. */}
+        <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
           {products.map((p) => (
             <GalleryItem key={p.name} {...p} />
           ))}

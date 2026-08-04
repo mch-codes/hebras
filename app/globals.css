@@ -51,6 +51,22 @@ body {
   }
 }
 
+/* Fade only, no translate, for the masonry items: Safari mispaints multicol
+   children while they're mid-transform — blanks, or a figure drawn in the
+   wrong column until the next repaint. Opacity alone doesn't trigger it. */
+#coleccion figure {
+  animation-name: fade-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Gallery stagger. Scroll timelines ignore animation-delay, so instead each
    figure gets a longer range than its neighbour — same trigger, different
    pace, which reads as a stagger across a masonry row. */
