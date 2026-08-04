@@ -1,5 +1,6 @@
 "use client";
 
+import { INSTAGRAM } from "@/lib/site";
 import { scrollToId } from "@/components/SmoothScroll";
 
 export default function Footer() {
@@ -18,7 +19,7 @@ export default function Footer() {
         Hebras
       </a>
       <a
-        href="https://instagram.com/hebrastejidos"
+        href={INSTAGRAM}
         target="_blank"
         rel="noreferrer noopener"
         className="flex min-h-11 items-center transition-colors hover:text-clay"

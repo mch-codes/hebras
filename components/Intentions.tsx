@@ -1,10 +1,9 @@
-import { waLink } from "@/lib/site";
+import { INSTAGRAM } from "@/lib/site";
 
 /**
  * Browse-by-use-case tiles. On a real store these open filtered collections;
- * with 11 made-to-order pieces there is nothing to filter, so each tile opens
- * WhatsApp with the intention already written. The tile *is* the conversation
- * starter — which is the only funnel this site has.
+ * with 11 made-to-order pieces there is nothing to filter, so every tile sends
+ * people to Instagram, where the work and the DMs already live.
  */
 const intentions = [
   {
@@ -12,28 +11,24 @@ const intentions = [
     tagline: "Una pieza que no tiene nadie más.",
     src: "/products/bolso-conchas.jpg",
     hover: "/products/conchas-detalle.jpg",
-    message: "Hola Hebras, busco una pieza para regalar. ¿Qué me recomiendas?",
   },
   {
     label: "Para el día a día",
     tagline: "Ligeros, resistentes, de diario.",
     src: "/products/bolso-mint.jpg",
     hover: "/products/bolso-mint-colgado.jpg",
-    message: "Hola Hebras, busco un bolso para el día a día.",
   },
   {
     label: "Para viajar",
     tagline: "Sombreros y bolsos de verano.",
     src: "/products/sombrero-crudo.jpg",
     hover: "/products/sombrero-camel.jpg",
-    message: "Hola Hebras, busco algo para llevar de viaje o a la playa.",
   },
   {
     label: "A medida",
     tagline: "Tu color, tu tamaño, tu pieza.",
     src: "/products/bolso-flecos.jpg",
     hover: "/products/etiqueta.jpg",
-    message: "Hola Hebras, me gustaría encargar una pieza a medida.",
   },
 ];
 
@@ -49,12 +44,13 @@ export default function Intentions() {
         aria-label="Qué estás buscando"
         className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-8"
       >
-        {intentions.map(({ label, tagline, src, hover, message }) => (
+        {intentions.map(({ label, tagline, src, hover }) => (
           <li key={label} className="reveal">
             <a
-              href={waLink(message)}
+              href={INSTAGRAM}
               target="_blank"
               rel="noreferrer noopener"
+              aria-label={`${label} — ver en Instagram`}
               className="group block"
             >
               <div className="relative aspect-[4/5] overflow-hidden bg-oat">
