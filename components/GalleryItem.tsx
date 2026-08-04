@@ -13,10 +13,13 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
     <figure className="reveal group mb-6 cursor-pointer break-inside-avoid md:mb-8">
       <div className={`${ratio} overflow-hidden bg-oat`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
+        {/* No loading="lazy" here: Safari computes lazy-load intersection before
+            multicol fragmentation, so photos in the 2nd/3rd column often never
+            load at all. Eleven ~150 KB photos, so eager costs little. */}
         <img
           src={src}
           alt={name}
-          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
       </div>
