@@ -15,9 +15,13 @@ import { scrollToId } from "@/components/SmoothScroll";
  */
 export default function Hero() {
   return (
+    /* svh, not vh: on iOS the vh unit is the *large* viewport, so a full-height
+       hero hides the wordmark and CTA under the browser chrome until you
+       scroll. Shorter than full height on phones too — a portrait photo cropped
+       to a tall narrow box loses the bag. */
     <section
       id="top"
-      className="hero-frame relative flex min-h-screen items-end overflow-hidden bg-oat"
+      className="hero-frame relative flex min-h-[72svh] items-end overflow-hidden bg-oat md:min-h-screen"
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
       <img
@@ -35,7 +39,9 @@ export default function Hero() {
       <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 md:px-12 md:pb-24">
         {/* -0.034em cancels the "H" left side bearing in Cormorant, so the
             wordmark's stem lands on the same line as the header logo's. */}
-        <h1 className="-ml-[0.034em] font-serif font-light text-[18vw] leading-[0.85] tracking-[-0.02em] text-paper md:text-[8rem]">
+        {/* One fluid value instead of a vw/rem pair, so there is no jump at the
+            md breakpoint. 3.25rem keeps "Hebras" on one line down to 320px. */}
+        <h1 className="-ml-[0.034em] font-serif font-light text-[clamp(3.25rem,18vw,8rem)] leading-[0.85] tracking-[-0.02em] text-paper">
           Hebras
         </h1>
         <p className="mt-5 max-w-lg font-serif text-xl italic tracking-wide text-paper/90 md:text-3xl">
@@ -44,7 +50,7 @@ export default function Hero() {
 
         <button
           onClick={() => scrollToId("coleccion")}
-          className="mt-10 inline-flex cursor-pointer items-center gap-3 border border-paper/70 px-7 py-3.5 text-[0.7rem] uppercase tracking-[0.25em] text-paper transition-colors hover:bg-paper hover:text-ink md:mt-12"
+          className="mt-10 inline-flex min-h-11 cursor-pointer items-center gap-3 border border-paper/70 px-7 py-4 text-[0.7rem] uppercase tracking-[0.25em] text-paper transition-colors hover:bg-paper hover:text-ink md:mt-12"
         >
           Ver piezas
         </button>

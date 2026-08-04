@@ -31,7 +31,7 @@ export default function Story() {
           después volví al ganchillo para desconectar del trabajo y acabé
           tejiendo para medio barrio.
         </p>
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-ink/60">
+        <p className="mt-5 max-w-md text-base leading-relaxed text-ink/70 md:text-sm">
           Hoy tejo por encargo desde casa, en Madrid. Cada bolso me lleva entre
           dos y tres semanas: elijo el hilo, pruebo el color contigo y lo hago
           del tamaño que necesites. No hay dos iguales, y esa es la idea.

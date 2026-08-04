@@ -56,7 +56,7 @@ export default function Page() {
           <p className="mt-6 font-serif text-lg italic leading-relaxed text-ink/75 md:text-xl">
             Cada pieza que sale de mis manos lleva esta etiqueta.
           </p>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink/55">
+          <p className="mt-5 max-w-sm text-base leading-relaxed text-ink/70 md:text-sm">
             Es la firma de la marca: si la lleva, la he tejido yo.
           </p>
         </div>

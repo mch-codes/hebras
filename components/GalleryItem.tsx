@@ -10,15 +10,15 @@ export type Product = {
 
 export default function GalleryItem({ name, material, ratio, src }: Product) {
   return (
-    <figure className="reveal group mb-6 cursor-pointer break-inside-avoid md:mb-8">
+    <figure className="reveal group cursor-pointer">
+      {/* The aspect-ratio wrapper reserves the box before the file lands, so a
+          loading photo never shifts the page. */}
       <div className={`${ratio} overflow-hidden bg-oat`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
-        {/* No loading="lazy" here: Safari computes lazy-load intersection before
-            multicol fragmentation, so photos in the 2nd/3rd column often never
-            load at all. Eleven ~150 KB photos, so eager costs little. */}
         <img
           src={src}
           alt={name}
+          loading="lazy"
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
@@ -31,10 +31,10 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
                    sm:group-hover:translate-y-0 sm:group-hover:opacity-100
                    sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100"
       >
-        <div className="flex items-baseline justify-between gap-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <span className="font-serif text-base">{name}</span>
           {material && (
-            <span className="text-[0.7rem] uppercase tracking-[0.15em] text-ink/40">
+            <span className="text-[0.7rem] uppercase tracking-[0.15em] text-ink/70">
               {material}
             </span>
           )}
@@ -45,7 +45,7 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
           href={INSTAGRAM}
           target="_blank"
           rel="noreferrer noopener"
-          className="group/cta mt-3 inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.2em] text-ink/50"
+          className="group/cta mt-1 inline-flex min-h-11 items-center gap-2 py-2 text-[0.7rem] uppercase tracking-[0.2em] text-ink/70"
         >
           <span className="relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-clay after:transition-transform after:duration-[350ms] after:ease-out group-hover/cta:after:scale-x-100 group-focus-visible/cta:after:scale-x-100">
             Ver en Instagram

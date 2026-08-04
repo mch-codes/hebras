@@ -14,27 +14,30 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-ink/50 via-ink/20 to-transparent backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 md:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-6 py-2 sm:gap-4 md:px-12 md:py-4">
         <a
           href="#top"
           onClick={scrollToHash}
-          className="-ml-[0.034em] font-serif text-xl tracking-wide text-paper md:text-2xl"
+          className="-ml-[0.034em] flex min-h-11 items-center font-serif text-xl tracking-wide text-paper md:text-2xl"
         >
           Hebras
         </a>
 
-        <nav className="hidden items-center gap-10 text-[0.9rem] font-semibold uppercase tracking-[0.25em] text-paper sm:flex">
+        {/* Condensed rather than hidden below sm: two links don't earn a
+            hamburger, but they do have to stay reachable on a phone. Tighter
+            tracking and a smaller size is what buys the room. */}
+        <nav className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-paper sm:gap-10 sm:text-[0.9rem] sm:tracking-[0.25em]">
           <a
             href="#coleccion"
             onClick={scrollToHash}
-            className="underline-offset-8 hover:underline"
+            className="flex min-h-11 items-center underline-offset-8 hover:underline"
           >
             Colección
           </a>
           <a
             href="#sobre-mi"
             onClick={scrollToHash}
-            className="underline-offset-8 hover:underline"
+            className="flex min-h-11 items-center whitespace-nowrap underline-offset-8 hover:underline"
           >
             Sobre mí
           </a>
@@ -44,7 +47,8 @@ export default function Header() {
           href={INSTAGRAM}
           target="_blank"
           rel="noreferrer noopener"
-          className="inline-flex items-center gap-2 border border-paper/40 bg-paper/10 px-4 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-paper backdrop-blur-sm transition-colors hover:bg-paper hover:text-ink md:px-5"
+          aria-label="Hebras en Instagram"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 border border-paper/40 bg-paper/10 px-3 py-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.2em] text-paper backdrop-blur-sm transition-colors hover:bg-paper hover:text-ink sm:px-4 md:px-5"
         >
           <svg
             viewBox="0 0 24 24"
@@ -58,7 +62,8 @@ export default function Header() {
             <circle cx="12" cy="12" r="4.4" />
             <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none" />
           </svg>
-          <span>Instagram</span>
+          {/* Icon carries it on phones — the word is what overflows the row. */}
+          <span className="hidden sm:inline">Instagram</span>
         </a>
       </div>
     </header>
