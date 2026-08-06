@@ -117,7 +117,7 @@ body {
    lands cleanly on the first photo instead of an empty box. */
 .hero-seq > img + img {
   opacity: 0;
-  animation-duration: 21s;
+  animation-duration: 12s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
@@ -132,7 +132,7 @@ body {
 
 /* Half a cycle behind, so the two panels never change at the same moment. */
 .hero-seq-late .hero-seq > img + img {
-  animation-delay: 10.5s;
+  animation-delay: 6s;
 }
 
 /* Photo 3 is on top of photo 2, so photo 2's fade-out (66.7→70%) happens
