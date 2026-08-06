@@ -1,16 +1,15 @@
 import GalleryItem, { type Product } from "./GalleryItem";
 
-// Ratios stay within each file's orientation but vary, so the masonry
-// reads as uneven heights instead of a metronome.
+// Six pieces, one per subject. The old set was eleven photos of eight things —
+// two bomboneras, three sombreros, two pulseras — which is why it needed an
+// ordering rule to keep repeats out of each other's neighbouring slots. With no
+// subject shown twice there is nothing to space apart, so order is free and set
+// by rhythm instead: portrait, landscape, portrait, so neither column runs a
+// stack of the same shape.
 //
-// Order matters here. Eleven photos in three balanced columns means a photo's
-// neighbours are the one below it AND the one roughly four slots later, in the
-// next column over. So each repeated subject — the two bombonera mint shots,
-// the two pulseras, the two conchas, the three sombreros — is spaced six slots
-// apart, which clears both. The only pair closer than that is the two
-// sombreros at slots 2 and 4: three hats can't all be six apart in eleven
-// slots, and two apart is the one short distance that is never a neighbour in
-// either direction.
+// Ratios are each file's own ratio (801x1200 and 855x1280 → 2/3, 1280x855 →
+// 3/2). Nothing is cropped, and at two columns a tile renders 576px at 1280 —
+// under every source width, so the stitch reads at full file resolution.
 const products: Product[] = [
   {
     name: "Bolso bombonera verde agua",
@@ -19,58 +18,16 @@ const products: Product[] = [
     src: "/products/bolso-mint-colgado.jpg",
   },
   {
-    name: "Sombrero crudo",
-    material: "Algodón y conchas",
-    ratio: "aspect-[3/4]",
-    src: "/products/sombrero-crudo.jpg",
-  },
-  {
     name: "Pulseras tejidas",
-    material: "Pieza única",
+    material: "Hilo de algodón",
     ratio: "aspect-[3/2]",
     src: "/products/pulseras-detalle.jpg",
   },
   {
     name: "Sombrero camel",
     material: "Hilo de algodón",
-    ratio: "aspect-[4/5]",
-    src: "/products/sombrero-camel.jpg",
-  },
-  {
-    name: "Detalle de conchas y perlas",
-    material: "Hecho a mano",
-    ratio: "aspect-[4/3]",
-    src: "/products/conchas-detalle.jpg",
-  },
-  {
-    name: "Bolso burdeos con asa de piedras",
-    material: "Hilo encerado",
-    ratio: "aspect-[4/3]",
-    src: "/products/bolso-burdeos.jpg",
-  },
-  {
-    name: "Bolso bombonera sobre madera",
-    material: "Trapillo de algodón",
     ratio: "aspect-[2/3]",
-    src: "/products/bolso-mint.jpg",
-  },
-  {
-    name: "Bolso redondo con flecos",
-    material: "Hilo de seda",
-    ratio: "aspect-[3/4]",
-    src: "/products/bolso-flecos.jpg",
-  },
-  {
-    name: "Pulseras en tonos tierra",
-    material: "Hilo de algodón",
-    ratio: "aspect-[3/4]",
-    src: "/products/pulseras.jpg",
-  },
-  {
-    name: "Conjunto de sombrero y bolso",
-    material: "Por encargo",
-    ratio: "aspect-[4/5]",
-    src: "/products/sombrero-y-bolso.jpg",
+    src: "/products/sombrero-camel.jpg",
   },
   {
     name: "Bolso crudo con conchas",
@@ -78,52 +35,48 @@ const products: Product[] = [
     ratio: "aspect-[3/2]",
     src: "/products/bolso-conchas.jpg",
   },
+  {
+    name: "Bolso redondo con flecos",
+    material: "Hilo de seda",
+    ratio: "aspect-[2/3]",
+    src: "/products/bolso-flecos.jpg",
+  },
+  {
+    name: "Bolso burdeos con asa de piedras",
+    material: "Hilo encerado",
+    ratio: "aspect-[3/2]",
+    src: "/products/bolso-burdeos.jpg",
+  },
+  // Left out on purpose: the second bombonera, the second pulseras, the crudo
+  // sombrero (it already carries the Story block), the conjunto and the conchas
+  // close-up. All are the same subjects as the six above, and a second angle of
+  // a piece costs a slot without adding a piece.
+  //
   // etiqueta.jpg is the brand tag — it lives in its own section on app/page.tsx.
-];
-
-// Sits centred on each corner of the frame, paper padding cutting the line.
-const corners = [
-  "left-0 top-0 -translate-x-1/2 -translate-y-1/2 -rotate-45",
-  "right-0 top-0 translate-x-1/2 -translate-y-1/2 rotate-45",
-  "left-0 bottom-0 -translate-x-1/2 translate-y-1/2 rotate-[225deg]",
-  "right-0 bottom-0 translate-x-1/2 translate-y-1/2 rotate-[135deg]",
 ];
 
 export default function Gallery() {
   return (
-    <section id="coleccion" className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-32">
-      {/* The frame wraps heading and grid together, so the section reads as one
-          plate rather than a title floating above photos. */}
-      <div className="relative border border-taupe/50 px-6 py-14 md:px-12 md:py-20">
-        {corners.map((pos) => (
-          <svg
-            key={pos}
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-            className={`absolute ${pos} h-4 w-4 bg-paper px-0.5 text-clay`}
-          >
-            <path d="M12 21s-8-5-8-10.2A4.8 4.8 0 0 1 12 7.2a4.8 4.8 0 0 1 8 3.6C20 16 12 21 12 21Z" />
-          </svg>
-        ))}
+    <section id="coleccion" className="mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-36">
+      {/* Plain centred label, no frame. The border-and-corner-hearts plate that
+          used to wrap this cost 96px of padding on each side — which came
+          straight off the photos — and put ornament in front of the work. */}
+      <h2 className="mb-16 text-center font-serif font-light text-3xl tracking-wide md:mb-24 md:text-4xl">
+        Colección
+      </h2>
 
-        {/* Legend-style: straddles the top border, paper background cuts the
-            line. No .reveal — its keyframe ends on transform:none, which would
-            undo the centering translate. */}
-        <h2 className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-1/2 bg-paper px-6 text-center font-serif font-light text-3xl tracking-wide md:text-4xl">
-          Colección
-        </h2>
-        {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, so a
-            row-aligned grid leaves a ragged gap under every short one — and its
-            left-to-right flow breaks the ordering above, which is written for
-            the way columns flow top-to-bottom. The cost is two Safari multicol
-            bugs, both worked around: eager images in GalleryItem, fade-only
-            reveal in globals.css. */}
-        <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 lg:gap-8">
-          {products.map((p) => (
-            <GalleryItem key={p.name} {...p} />
-          ))}
-        </div>
+      {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, so a
+          row-aligned grid leaves a ragged gap under every short one. The cost is
+          two Safari multicol bugs, both worked around: eager images in
+          GalleryItem, fade-only reveal in globals.css.
+
+          One column until lg, capped at 50rem: the portrait files are 801px
+          wide, so an uncapped single column would be upscaling them by 1023px
+          viewport. Two columns from lg, where the halves land at 448–576px. */}
+      <div className="mx-auto max-w-[50rem] columns-1 gap-6 lg:max-w-none lg:columns-2 lg:gap-10">
+        {products.map((p) => (
+          <GalleryItem key={p.name} {...p} />
+        ))}
       </div>
     </section>
   );

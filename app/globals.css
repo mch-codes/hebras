@@ -54,7 +54,7 @@ body {
 /* Fade only, no translate, for the masonry items: Safari mispaints multicol
    children while they're mid-transform — blanks, or a figure drawn in the
    wrong column until the next repaint. Opacity alone doesn't trigger it. */
-#coleccion figure {
+#coleccion .reveal {
   animation-name: fade-in;
 }
 
@@ -68,13 +68,11 @@ body {
 }
 
 /* Gallery stagger. Scroll timelines ignore animation-delay, so instead each
-   figure gets a longer range than its neighbour — same trigger, different
-   pace, which reads as a stagger across a masonry row. */
-#coleccion figure:nth-child(3n + 2) {
-  animation-range: entry 0% cover 45%;
-}
-#coleccion figure:nth-child(3n) {
-  animation-range: entry 0% cover 55%;
+   tile gets a longer range than its neighbour — same trigger, different pace,
+   which reads as a stagger across a masonry row. Two columns now, not three, so
+   the tile that needs to lag is every second one, not every third. */
+#coleccion .reveal:nth-child(2n) {
+  animation-range: entry 0% cover 50%;
 }
 
 /* Hero parallax: the panels drift while the copy and scrim scroll normally.
