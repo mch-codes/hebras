@@ -42,20 +42,21 @@ export default function SmoothScroll() {
     // runs there. Drive the same drift off the rAF loop we already have — the
     // feature test means this self-disables the day Firefox ships it.
     // ponytail: linear approximation of the view-timeline, not the same curve.
-    const hero = CSS.supports("animation-timeline: view()")
-      ? null
-      : document.querySelector<HTMLElement>(".hero-parallax");
-    if (hero) {
-      hero.style.top = "-20vh";
-      hero.style.height = "calc(100% + 40vh)";
+    const heroes = CSS.supports("animation-timeline: view()")
+      ? []
+      : [...document.querySelectorAll<HTMLElement>(".hero-parallax")];
+    for (const hero of heroes) {
+      hero.style.top = "-8vh";
+      hero.style.height = "calc(100% + 16vh)";
       hero.style.willChange = "transform";
     }
 
     let frame = requestAnimationFrame(function raf(time) {
       lenis?.raf(time);
-      if (hero) {
+      if (heroes.length) {
         const p = Math.min(1, window.scrollY / window.innerHeight);
-        hero.style.transform = `translateY(${(p * 2 - 1) * 20}vh)`;
+        const y = `translateY(${(p * 2 - 1) * 8}vh)`;
+        for (const hero of heroes) hero.style.transform = y;
       }
       frame = requestAnimationFrame(raf);
     });

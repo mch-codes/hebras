@@ -18,7 +18,7 @@ export default function Header() {
         <a
           href="#top"
           onClick={scrollToHash}
-          className="-ml-[0.034em] flex min-h-11 items-center font-serif text-xl tracking-wide text-paper md:text-2xl"
+          className="-ml-[0.02em] flex min-h-11 items-center font-serif text-xl tracking-wide text-paper md:text-2xl"
         >
           Hebras
         </a>

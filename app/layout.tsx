@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Fraunces, Work_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
-// Cormorant Garamond isn't variable on Google Fonts, so the weights are listed
-// explicitly — 300 for the display headings, 400 for everything else. Real
-// italics ship too: the pull quotes and the hero subtitle lean on them at large
-// sizes, where a synthesised oblique looks cheap.
-// ponytail: add 500/600 here if a heading ever needs more weight.
-const cormorant = Cormorant_Garamond({
+// Fraunces is variable, so no weight list — every value 100–900 is available to
+// the `font-*` utilities. opsz is requested explicitly: without it next/font
+// pins the axis, and the browser's default `font-optical-sizing: auto` is what
+// makes the wordmark at 8rem a different drawing from body copy at 1rem, which
+// is most of why this face works as display type. Real italics ship too — the
+// pull quotes and the hero line lean on them at large sizes.
+// ponytail: SOFT and WONK left at their defaults. Request them here if a
+// heading ever wants the soft terminals or the swash descenders.
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["300", "400"],
   style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  axes: ["opsz"],
+  variable: "--font-fraunces",
 });
 
-const jost = Jost({
+const workSans = Work_Sans({
   subsets: ["latin"],
-  variable: "--font-jost",
+  variable: "--font-work-sans",
 });
 
 const title = "Hebras — crochet artesanal";
@@ -54,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`scroll-smooth ${cormorant.variable} ${jost.variable}`}
+      className={`scroll-smooth ${fraunces.variable} ${workSans.variable}`}
     >
       <body>
         <SmoothScroll />
