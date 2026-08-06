@@ -23,8 +23,8 @@ export default function Header() {
           Hebras
         </a>
 
-        {/* Condensed rather than hidden below sm: two links don't earn a
-            hamburger, but they do have to stay reachable on a phone. Tighter
+        {/* Condensed rather than hidden below sm: one link doesn't earn a
+            hamburger, but it does have to stay reachable on a phone. Tighter
             tracking and a smaller size is what buys the room. */}
         <nav className="flex items-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-paper sm:gap-10 sm:text-[0.9rem] sm:tracking-[0.25em]">
           <a
@@ -33,13 +33,6 @@ export default function Header() {
             className="flex min-h-11 items-center underline-offset-8 hover:underline"
           >
             Colección
-          </a>
-          <a
-            href="#sobre-mi"
-            onClick={scrollToHash}
-            className="flex min-h-11 items-center whitespace-nowrap underline-offset-8 hover:underline"
-          >
-            Sobre mí
           </a>
         </nav>
 

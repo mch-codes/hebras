@@ -48,11 +48,13 @@ const products: Product[] = [
     src: "/products/bolso-burdeos.jpg",
   },
   // Left out on purpose: the second bombonera, the second pulseras, the crudo
-  // sombrero (it already carries the Story block), the conjunto and the conchas
-  // close-up. All are the same subjects as the six above, and a second angle of
-  // a piece costs a slot without adding a piece.
+  // sombrero, the conjunto and the conchas close-up. All are the same subjects
+  // as the six above, and a second angle of a piece costs a slot without adding
+  // a piece.
   //
-  // etiqueta.jpg is the brand tag — it lives in its own section on app/page.tsx.
+  // etiqueta.jpg is the brand tag. It has no section of its own any more — the
+  // page is Hero, Gallery, Footer — so it is currently unused, along with
+  // sombrero-crudo.jpg and conchas-detalle.jpg.
 ];
 
 export default function Gallery() {
