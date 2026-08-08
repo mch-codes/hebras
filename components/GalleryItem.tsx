@@ -4,15 +4,21 @@ import { useEffect, useRef, useState } from "react";
 
 import { INSTAGRAM } from "@/lib/site";
 
-// Which side each title arrives from, cycled by index so no two neighbours come
-// in the same way. 10px in every direction — the distance is what keeps it a
-// reveal rather than a slide, so vary the side, not the travel.
-const TITLE_FROM = [
-  "translateY(10px)", // up from below
-  "translateX(-10px)", // in from the left
-  "translateY(-10px)", // down from above
-  "translateX(10px)", // in from the right
+// Which side a tile arrives from, cycled by index so no two neighbours come in
+// the same way. Photo and title share the direction — they're one piece, and
+// sending them opposite ways reads as two unrelated things landing.
+const DIRECTIONS = [
+  [0, 1], // up from below
+  [-1, 0], // in from the left
+  [0, -1], // down from above
+  [1, 0], // in from the right
 ];
+
+// The photo travels further than the title only because it is bigger; 24px on a
+// 576px photo and 10px on a line of type are about the same gesture. Vary the
+// side, not the distance — that's what keeps it a reveal and not a slide.
+const PHOTO_TRAVEL = 24;
+const TITLE_TRAVEL = 10;
 
 export type Product = {
   name: string;
@@ -28,8 +34,9 @@ export default function GalleryItem({
   ratio,
   src,
   index,
-  lateTitle,
-}: Product & { index: number; lateTitle: boolean }) {
+  late,
+}: Product & { index: number; late: boolean }) {
+  const [dx, dy] = DIRECTIONS[index % DIRECTIONS.length];
   // The <a> is the observed box and is never transformed — the slide happens on
   // the <figure> inside it. IntersectionObserver reads the *transformed* rect,
   // so animating the observed element walks it out of the viewport and it can
@@ -46,8 +53,12 @@ export default function GalleryItem({
   // broken, and the gallery still reads. All the mobile motion hangs off this
   // attribute, so its absence is the safe state, not a hidden one.
   const [shown, setShown] = useState<boolean | null>(null);
-  // Sticky: the desktop title reveal is once per page, so this only ever goes
-  // false → true. Same observer, no second one to register.
+  // Sticky: the desktop reveals are once per page, so these only ever go
+  // false → true. Same observer, no extra ones to register. Two flags because
+  // the photo and the title are triggered by different boxes — the tile's top
+  // and the caption itself — which is most of what puts a screen of scrolling
+  // between them.
+  const [entered, setEntered] = useState(false);
   const [seen, setSeen] = useState(false);
 
   useEffect(() => {
@@ -64,6 +75,7 @@ export default function GalleryItem({
             if (e.isIntersecting) setSeen(true);
           } else {
             setShown(e.isIntersecting);
+            if (e.isIntersecting) setEntered(true);
           }
         }
       },
@@ -80,7 +92,8 @@ export default function GalleryItem({
        six copies of the same CTA under six photos is more chrome than photo.
        Six identical hrefs, so the accessible name says which piece.
 
-       mb, not grid gap: multicol has no row gap. */
+       mb on the tile, not a gap on the column: the column is a plain block, and
+       a margin is one property against a flex context this doesn't need. */
     <a
       ref={ref}
       href={INSTAGRAM}
@@ -90,6 +103,7 @@ export default function GalleryItem({
       data-slide={shown === null ? undefined : shown ? "in" : "out"}
       // Same null-first rule as data-slide: no attribute before the observer
       // reports, so a caption is never hidden by CSS that JS might not undo.
+      data-photo={shown === null ? undefined : entered ? "y" : "n"}
       data-seen={shown === null ? undefined : seen ? "y" : "n"}
       // ponytail: index % 2, not index — a plain index makes the last tile wait
       // 450ms even when it enters alone. Two adjacent tiles are all that can
@@ -97,19 +111,22 @@ export default function GalleryItem({
       style={
         {
           "--stagger": (index % 2) * 90,
-          "--stagger-lg": lateTitle ? 140 : 0,
-          "--title-from": TITLE_FROM[index % TITLE_FROM.length],
+          "--stagger-lg": late ? 140 : 0,
+          "--photo-from": `translate(${dx * PHOTO_TRAVEL}px, ${dy * PHOTO_TRAVEL}px)`,
+          "--title-from": `translate(${dx * TITLE_TRAVEL}px, ${dy * TITLE_TRAVEL}px)`,
         } as React.CSSProperties
       }
-      className="reveal group mb-14 block break-inside-avoid lg:mb-16"
+      className="group mb-14 block lg:mb-16"
     >
       <figure>
         {/* The aspect-ratio wrapper reserves the box before the file lands, so a
             loading photo never shifts the page. */}
-        <div className={`${ratio} overflow-hidden bg-oat`}>
+        <div className={`tile-photo ${ratio} overflow-hidden bg-oat`}>
           {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image CDN */}
-          {/* No loading="lazy": Safari resolves it against the pre-fragmentation
-              layout, so photos past column 1 never load. Six ~150 KB files. */}
+          {/* Still eager. The reason used to be load-bearing — Safari resolved
+              loading="lazy" against the pre-fragmentation layout and never
+              loaded anything past column 1 — and with multicol gone it is only
+              a preference now. Six ~150 KB files, all of them the section. */}
           <img
             src={src}
             alt={name}

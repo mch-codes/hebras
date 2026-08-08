@@ -51,29 +51,12 @@ body {
   }
 }
 
-/* Fade only, no translate, for the masonry items: Safari mispaints multicol
-   children while they're mid-transform — blanks, or a figure drawn in the
-   wrong column until the next repaint. Opacity alone doesn't trigger it. */
-#coleccion .reveal {
-  animation-name: fade-in;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Gallery stagger. Scroll timelines ignore animation-delay, so instead each
-   tile gets a longer range than its neighbour — same trigger, different pace,
-   which reads as a stagger across a masonry row. Two columns now, not three, so
-   the tile that needs to lag is every second one, not every third. */
-#coleccion .reveal:nth-child(2n) {
-  animation-range: entry 0% cover 50%;
-}
+/* The gallery used to ride .reveal too, fade-only and scroll-scrubbed, with the
+   stagger faked by giving every second tile a longer animation-range. It now
+   drives its own reveal off an observer — photo first, title a beat later, each
+   from its own side — so the tiles carry no .reveal, and the fade-in keyframes
+   and the nth-child range override that existed only for them are gone with it.
+   Everything gallery lives in the two blocks below. */
 
 /* Mobile gallery: slide in from the left on entry, back out to the left on
    exit. Driven by the data-slide attribute GalleryItem's IntersectionObserver
@@ -85,10 +68,6 @@ body {
    The stagger lives in --stagger (ms, set per tile); exit has no delay, tiles
    leave together. */
 @media (max-width: 1023px) {
-  #coleccion .reveal {
-    animation: none;
-  }
-
   /* The figure moves, not the <a> the observer is watching. Transforming the
      observed element drags its intersection rect off-screen with it, and a tile
      that can't report itself back in never comes back. */
@@ -121,26 +100,46 @@ body {
   }
 }
 
-/* Desktop title reveal: the photo keeps its scroll-driven fade, the caption
-   underneath it lifts in a beat later, and the two columns are 140ms apart so
-   a visible pair reads left then right. Once per page — data-seen is sticky, so
-   scrolling back up leaves the titles where they are.
+/* Desktop reveal, in two passes. The photo comes in when the top of its tile
+   reaches the screen; the title waits for the caption itself, which sits at the
+   bottom of an ~860px tile, so most of a screen of scrolling already separates
+   them — the 400ms below is a beat on top of that, not the whole gap. Both
+   arrive from the side the tile picked, and the right-hand column trails the
+   left by --stagger-lg, so each pass reads one tile at a time.
 
-   lg and up only; below that the caption is already driven by data-slide. */
+   Once per page: data-photo and data-seen are both sticky, so scrolling back up
+   leaves everything where it is.
+
+   lg and up only; below that the whole figure is driven by data-slide.
+
+   850ms, not the 500 this started at: these trip on the first sliver of the
+   element, so at 500 the fade was over before it had cleared the bottom edge of
+   the screen and read as a pop. The knobs are the durations here, the 400ms
+   beat, and --stagger-lg in GalleryItem for the column gap. */
 @media (min-width: 1024px) {
-  /* 850ms, not the 500 this started at: the caption trips its observer on the
-     first sliver of itself, so at 500 the fade was over before it had cleared
-     the bottom edge of the screen and read as a pop. The two knobs are here —
-     duration for the pace, --stagger-lg in GalleryItem for the column gap. */
+  #coleccion [data-photo] .tile-photo,
   #coleccion [data-seen] figcaption {
     transition:
       opacity 850ms ease-out,
       transform 850ms ease-out;
+  }
+
+  #coleccion [data-photo] .tile-photo {
     transition-delay: calc(var(--stagger-lg, 0) * 1ms);
   }
 
+  #coleccion [data-seen] figcaption {
+    transition-delay: calc((var(--stagger-lg, 0) + 400) * 1ms);
+  }
+
   /* Direction comes from the tile, set in GalleryItem — below, left, above,
-     right, cycled. The fallback is the old straight-up reveal. */
+     right, cycled, and shared by the photo and its title. The fallbacks are the
+     old straight-up reveal. */
+  #coleccion [data-photo="n"] .tile-photo {
+    opacity: 0;
+    transform: var(--photo-from, translateY(24px));
+  }
+
   #coleccion [data-seen="n"] figcaption {
     opacity: 0;
     transform: var(--title-from, translateY(10px));
@@ -243,9 +242,8 @@ body {
   /* Gallery keeps the enter/exit fade, drops the travel. Later in the file than
      the rules it overrides and at the same specificity, so it wins. Stagger
      timing is untouched — only the movement goes. */
-  #coleccion [data-slide="out"] > figure {
-    transform: none;
-  }
+  #coleccion [data-slide="out"] > figure,
+  #coleccion [data-photo="n"] .tile-photo,
   #coleccion [data-seen="n"] figcaption {
     transform: none;
   }

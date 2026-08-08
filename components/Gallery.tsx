@@ -57,6 +57,9 @@ const products: Product[] = [
   // sombrero-crudo.jpg and conchas-detalle.jpg.
 ];
 
+const half = Math.ceil(products.length / 2);
+const columns = [products.slice(0, half), products.slice(half)];
+
 export default function Gallery() {
   return (
     <section id="coleccion" className="mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-36">
@@ -68,41 +71,52 @@ export default function Gallery() {
       </h2>
 
       {/* Masonry, not a strict grid: the photos are mixed 2:3 and 3:2, so a
-          row-aligned grid leaves a ragged gap under every short one. The cost is
-          two Safari multicol bugs, both worked around: eager images in
-          GalleryItem, fade-only reveal in globals.css.
+          row-aligned grid leaves a ragged gap under every short one.
 
-          Multicol only from lg. Below that it was columns-1 — one column of
-          multicol is plain block flow with extra bugs attached, and the mobile
-          slide-in translates the tiles, which is exactly what Safari mispaints
-          inside multicol. No columns below lg, no bug, no fade-only workaround.
+          Two flex columns, not multicol. Multicol did the same job with less
+          markup, but Safari mispaints a fragmented child while it is mid
+          transform — blanks, or a figure drawn in the wrong column until
+          something forces a repaint — which is why the reveal in here used to be
+          fade-only. The photos now travel as well as fade, so the fragmentation
+          had to go. Two plain columns, no fragmentation, no bug, and the eager
+          <img> in GalleryItem is no longer load-bearing either.
+
+          The split is the same one multicol was already picking: of the five
+          places to cut, first-half/second-half leaves the columns closest in
+          height, so the layout is unchanged.
 
           85% and centred on mobile: ~15% off the old full-bleed tile, and the
-          margin gives the slide somewhere to come from. Two columns from lg,
-          where the halves land at 448–576px.
+          margin gives the slide somewhere to come from. Columns stack below lg,
+          and a contiguous split means stacking them replays the original order.
 
           overflow-x-clip so the off-screen start position can't add a sideways
           scroll. clip, not hidden: hidden would make this a scroll container.
-          max-lg only — the desktop titles arrive from the left and right now,
-          and a clip on the column edge would shave the first letter off them
-          mid-fade. Nothing overflows up there anyway. */}
-      <div className="mx-auto max-w-[85%] max-lg:overflow-x-clip lg:max-w-none lg:columns-2 lg:gap-10">
-        {/* lateTitle marks the right-hand column. Multicol fragments the DOM in
-            order, so the back half of the list is column two — its titles come
-            in 140ms behind their left-hand neighbour, which reads left to right.
+          max-lg only — up top the photos and titles arrive from the left and
+          right, and a clip on the column edge would shave them mid-fade. The
+          section's own padding absorbs the travel, so nothing overflows. */}
+      <div className="mx-auto flex max-w-[85%] flex-col max-lg:overflow-x-clip lg:max-w-none lg:flex-row lg:gap-10">
+        {columns.map((column, c) => (
+          <div key={c} className="lg:min-w-0 lg:flex-1">
+            {column.map((p, i) => (
+              <GalleryItem
+                key={p.name}
+                /* Position in the whole list, for the mobile stagger, where the
+                   two columns are stacked back into one. */
+                index={c * columns[0].length + i}
+                /* The right-hand column trails its neighbour by 140ms, so a
+                   visible pair reads left then right.
 
-            ponytail: two steps, not index × 140. A running index would have the
-            last tile's title waiting 700ms after it enters, and on a gallery
-            this tall it enters alone, halfway down the page, long after the
-            first pair sequenced. Only one tile per column is on screen at a
-            time, so a pair is the whole sequence anyone actually sees. */}
-        {products.map((p, i) => (
-          <GalleryItem
-            key={p.name}
-            index={i}
-            lateTitle={i >= products.length / 2}
-            {...p}
-          />
+                   ponytail: two steps, not index × 140. A running index would
+                   have the last tile waiting 700ms after it enters, and on a
+                   gallery this tall it enters alone, halfway down the page, long
+                   after the first pair sequenced. Only one tile per column is on
+                   screen at a time, so a pair is the whole sequence anyone
+                   actually sees. */
+                late={c === 1}
+                {...p}
+              />
+            ))}
+          </div>
         ))}
       </div>
     </section>
