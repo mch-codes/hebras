@@ -82,10 +82,27 @@ export default function Gallery() {
           where the halves land at 448–576px.
 
           overflow-x-clip so the off-screen start position can't add a sideways
-          scroll. clip, not hidden: hidden would make this a scroll container. */}
-      <div className="mx-auto max-w-[85%] overflow-x-clip lg:max-w-none lg:columns-2 lg:gap-10">
+          scroll. clip, not hidden: hidden would make this a scroll container.
+          max-lg only — the desktop titles arrive from the left and right now,
+          and a clip on the column edge would shave the first letter off them
+          mid-fade. Nothing overflows up there anyway. */}
+      <div className="mx-auto max-w-[85%] max-lg:overflow-x-clip lg:max-w-none lg:columns-2 lg:gap-10">
+        {/* lateTitle marks the right-hand column. Multicol fragments the DOM in
+            order, so the back half of the list is column two — its titles come
+            in 140ms behind their left-hand neighbour, which reads left to right.
+
+            ponytail: two steps, not index × 140. A running index would have the
+            last tile's title waiting 700ms after it enters, and on a gallery
+            this tall it enters alone, halfway down the page, long after the
+            first pair sequenced. Only one tile per column is on screen at a
+            time, so a pair is the whole sequence anyone actually sees. */}
         {products.map((p, i) => (
-          <GalleryItem key={p.name} index={i} {...p} />
+          <GalleryItem
+            key={p.name}
+            index={i}
+            lateTitle={i >= products.length / 2}
+            {...p}
+          />
         ))}
       </div>
     </section>
