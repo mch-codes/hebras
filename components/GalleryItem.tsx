@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 import { INSTAGRAM } from "@/lib/site";
 
 export type Product = {
@@ -8,7 +12,32 @@ export type Product = {
   src: string;
 };
 
-export default function GalleryItem({ name, material, ratio, src }: Product) {
+export default function GalleryItem({
+  name,
+  material,
+  ratio,
+  src,
+  index,
+}: Product & { index: number }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  // null until the observer has spoken, so the server HTML and the first paint
+  // carry no state attribute and the tile is plainly visible — JS off, or JS
+  // broken, and the gallery still reads. All the mobile motion hangs off this
+  // attribute, so its absence is the safe state, not a hidden one.
+  const [shown, setShown] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Fires on the way out as well as in — that's the whole point of holding
+    // isIntersecting rather than unobserving after the first hit.
+    const io = new IntersectionObserver(([e]) => setShown(e.isIntersecting), {
+      threshold: 0.15,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     /* The whole tile is the link. It used to be a figure with cursor-pointer and
        a separate "Ver en Instagram" line underneath — the cursor was a lie, and
@@ -17,10 +46,16 @@ export default function GalleryItem({ name, material, ratio, src }: Product) {
 
        mb, not grid gap: multicol has no row gap. */
     <a
+      ref={ref}
       href={INSTAGRAM}
       target="_blank"
       rel="noreferrer noopener"
       aria-label={`${name} — ver en Instagram`}
+      data-slide={shown === null ? undefined : shown ? "in" : "out"}
+      // ponytail: index % 2, not index — a plain index makes the last tile wait
+      // 450ms even when it enters alone. Two adjacent tiles are all that can
+      // enter together on a phone, and they get 0 and 90ms.
+      style={{ "--stagger": (index % 2) * 90 } as React.CSSProperties}
       className="reveal group mb-14 block break-inside-avoid lg:mb-16"
     >
       <figure>

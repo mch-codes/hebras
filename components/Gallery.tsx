@@ -72,12 +72,20 @@ export default function Gallery() {
           two Safari multicol bugs, both worked around: eager images in
           GalleryItem, fade-only reveal in globals.css.
 
-          One column until lg, capped at 50rem: the portrait files are 801px
-          wide, so an uncapped single column would be upscaling them by 1023px
-          viewport. Two columns from lg, where the halves land at 448–576px. */}
-      <div className="mx-auto max-w-[50rem] columns-1 gap-6 lg:max-w-none lg:columns-2 lg:gap-10">
-        {products.map((p) => (
-          <GalleryItem key={p.name} {...p} />
+          Multicol only from lg. Below that it was columns-1 — one column of
+          multicol is plain block flow with extra bugs attached, and the mobile
+          slide-in translates the tiles, which is exactly what Safari mispaints
+          inside multicol. No columns below lg, no bug, no fade-only workaround.
+
+          85% and centred on mobile: ~15% off the old full-bleed tile, and the
+          margin gives the slide somewhere to come from. Two columns from lg,
+          where the halves land at 448–576px.
+
+          overflow-x-clip so the off-screen start position can't add a sideways
+          scroll. clip, not hidden: hidden would make this a scroll container. */}
+      <div className="mx-auto max-w-[85%] overflow-x-clip lg:max-w-none lg:columns-2 lg:gap-10">
+        {products.map((p, i) => (
+          <GalleryItem key={p.name} index={i} {...p} />
         ))}
       </div>
     </section>

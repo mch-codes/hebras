@@ -75,6 +75,49 @@ body {
   animation-range: entry 0% cover 50%;
 }
 
+/* Mobile gallery: slide in from the left on entry, back out to the left on
+   exit. Driven by the data-slide attribute GalleryItem's IntersectionObserver
+   writes, so it re-fires every pass in both directions, unlike the one-shot
+   fade above. Below lg only — desktop keeps the scroll-driven fade, and there
+   is no multicol down here to mispaint the transforms.
+
+   transform and opacity only, no width/margin, so it stays on the compositor.
+   The stagger lives in --stagger (ms, set per tile); exit has no delay, tiles
+   leave together. */
+@media (max-width: 1023px) {
+  #coleccion .reveal {
+    animation: none;
+  }
+
+  #coleccion [data-slide] {
+    transition:
+      transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 500ms ease-out;
+    transition-delay: calc(var(--stagger, 0) * 1ms);
+  }
+
+  #coleccion [data-slide="out"] {
+    opacity: 0;
+    /* -100% of the tile, and the tile is 85% of a padded viewport — clears the
+       left edge with room to spare. */
+    transform: translateX(-100%);
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    transition-delay: 0s;
+  }
+
+  /* The caption trails the photo by 180ms instead of riding in with it. */
+  #coleccion [data-slide] figcaption {
+    transition: opacity 400ms ease-out;
+    transition-delay: calc((var(--stagger, 0) + 180) * 1ms);
+  }
+
+  #coleccion [data-slide="out"] figcaption {
+    opacity: 0;
+    transition-duration: 200ms;
+    transition-delay: 0s;
+  }
+}
+
 /* Hero parallax: the panels drift while the copy and scrim scroll normally.
    Same scroll-driven-animation trick as .reveal, so Hero needs no scroll JS.
    The panel is oversized 8vh top and bottom so the drift never exposes an edge;
@@ -167,6 +210,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     animation: none;
+  }
+  /* Gallery keeps the enter/exit fade, drops the travel. Later in the file than
+     the rule it overrides and at the same specificity, so it wins. */
+  #coleccion [data-slide="out"] {
+    transform: none;
   }
   .hero-parallax {
     animation: none;
